@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Belajar Webmap Leaflet</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+         crossorigin="" />
+	    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+         crossorigin=""></script>
+         <link rel="stylesheet" href="cssm6.css">
+         <style>
+         body
+         {
+            background-color: #fff;
+        }
+        #map {
+            margin: auto;
+            width: 1000px;
+            height: 500px;
+            border: 5px solid #b32006;
+        	}
+		{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+section
+{
+    position: relative;
+    width: 100%;
+    min-height: 60vh;
+    padding: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    max-width: 1100px;
+}
+header
+{
+	background-color: #8B4513; /* Warna coklat muda */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header .logo img {
+    width: 70px; 
+    height: auto; 
+}
+header ul
+{
+    position: relative;
+    display: flex;
+}
+header ul li
+{
+    list-style: none;
+}
+header ul li a
+{
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 20px;
+    color: #fff;
+    background: #554b4e;
+    border-radius: 40px;
+    font-weight: 400;
+    margin-left: 40px;
+    text-decoration: none;
+}
+.content
+{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.content .textBox
+{
+    position: relative;
+    max-width: 600px;
+    text-align: justify;
+    font-family: sans-serif;
+    margin-top: 20px;
+}
+.content .textBox h2
+{
+    color:#333;
+    font-size: 4em;
+    line-height: 1.4em;
+    font-weight: 500;
+}
+.content .textBox h2 span
+{
+    color: #4c4447;
+    font-size: 1.0em;
+    font-weight: 900;   
+}
+.content .textBox p
+{
+    color:#333;
+}
+.content .textBox a
+{
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 20px;
+    background: #554b4e;
+    color:#fff;
+    border-radius: 40px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+.content .imgBox
+{
+    width: 200px;
+    display: flex;
+    padding-right: 150px;
+    margin-top: 10px;
+}
+.content .imgBox img
+{
+    max-width: 500px;
+}
+.tumb
+{
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    display: flex;
+}
+.tumb li
+{
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.tumb li:hover
+{
+    transform: translateY(-15px);
+}
+.tumb li img
+{
+    max-width: 50px;
+}
+.circle
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #96c0e1;
+    clip-path: circle(600px at right 800px);
+    transform: translateX(18%);
+}
+.kotak h3
+{
+    margin: auto;
+    width: 90%;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 30px; 
+    color: #554b4e;
+}
+.image
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+.image li
+{
+    display: inline-block;
+    margin: 0 20px;
+}
+.image li img
+{
+    max-width: 250px;
+    margin-top: 10px;
+}
+
+.wrapper {
+    margin: 220px ;
+    width: 70%;
+}
+.wrapper img {
+    max-width: 600px;
+    float: left;
+    margin-right: 30px; 
+}
+.text-box {
+    color: #333;
+}
+.text-box h2 {
+    font-size: 45px;
+}
+.text-box p {
+    font-size: 20px;
+    text-align: justify;
+}
+.five-boxes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.box {
+    width: 15%; /* Atur lebar kotak */
+    margin: 0 1.5%; /* Tambahkan margin horizontal sebesar 1.5% */
+    margin-bottom: 20px;
+    cursor: pointer;
+    border: 2px solid #ccc; /* Tambahkan border */
+    box-sizing: border-box; /* Pastikan border termasuk dalam hitungan lebar dan tinggi kotak */
+    border-radius: 8px; /* Tambahkan border radius untuk sudut yang lebih lembut */
+    overflow: hidden; /* Hindari konten gambar keluar dari kotak */
+}
+
+.box img {
+    width: 100%; /* Atur lebar gambar agar mengisi kotak */
+    height: auto; /* Biarkan tinggi gambar menyesuaikan proporsinya */
+}
+
+        }
+ /* Menengahkan elemen */
+        h2, .text-box {
+            text-align: center;
+			color: #333;
+        font-family: 'Poppins', sans-serif
+        }
+
+        /* Mengatur lebar iframe agar berada di tengah dan memiliki bingkai */
+        iframe {
+            display: block;
+            margin: 0 auto;
+            border: 5px solid #333; /* warna bingkai */
+            border-radius: 10px; /* sudut bingkai */
+        }
+
+        /* Mengatur margin pada .text-box */
+        .text-box {
+            margin: 20px auto;
+            max-width: 800px; /* lebar maksimum */
+        }
+
+        /* Memberikan padding pada paragraf */
+        .text-box p {
+            padding: 10px;
+        }
+            </style> 
+    </head>
+    <body>
+        <section>
+            </header>
+            <div class="circle"></div>
+            <header>
+                <a href="#" class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Coat_of_arms_of_Yogyakarta.svg"></a>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Informasi</a></li>
+                    <li><a href="#">Lokasi</a></li>
+                </ul>
+            </header>
+            <div class="content">
+            <div class="textBox">
+                <h2><span>Dinas Pendidikan</span></h2>
+                <p> Selamat datang di website resmi Pendidikan Kota Yogyakarta, tempat Anda dapat menemukan informasi yang komprehensif tentang sistem
+				pendidikan kami. Kami berkomitmen untuk menyediakan sumber daya yang berguna bagi masyarakat, mulai dari informasi sekolah hingga berita 
+				terbaru dalam dunia pendidikan. Temukan profil lengkap sekolah-sekolah, termasuk taman kanak-kanak hingga sekolah menengah atas, beserta 
+				program unggulan yang ditawarkan. Kami juga menyediakan akses mudah ke platform pendaftaran online bagi yang ingin mendaftar. Tetap terkini 
+				dengan berita dan perkembangan terbaru dalam dunia pendidikan Kota Yogyakarta. Jelajahi kalender acara pendidikan yang penuh dengan seminar, 
+				lokakarya, dan kegiatan lainnya. Temukan informasi tentang berbagai program beasiswa yang tersedia dan dapatkan artikel dan tips bermanfaat 
+				untuk mendukung pendidikan Anda. Jelajahi peta interaktif yang menampilkan lokasi sekolah, perguruan tinggi, dan lembaga pendidikan lainnya di 
+				seluruh Kota Yogyakarta. Kami mengundang Anda untuk bergabung dalam memajukan dunia pendidikan untuk masa depan yang lebih baik! </p>
+                <a href="#">Learn More</a>
+            </div>
+            <div class="imgBox">
+                <img src="D:\SEMESTER 4\PRAK SIGWEB\M6 Tugas\foto\Animasi-Belajar-Membaca-GIF-3--unscreen.gif" class="sekolah">
+            </div>
+            </div>
+            <ul class="tumb">
+                <li><img src="https://cdn.kibrispdr.org/data/335/gambar-gedung-sekolah-smp-animasi-14.jpg" onclick="imgSlider('https://cdn.kibrispdr.org/data/335/gambar-gedung-sekolah-smp-animasi-14.jpg');changeCircleColor('#c99ece')"></li>
+                <li><img src="https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2022/07/08/2554665199.jpg" onclick="imgSlider('https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2022/07/08/2554665199.jpg');changeCircleColor('#686867')"></li>
+                <li><img src="https://cdn.kibrispdr.org/data/335/gambar-gedung-sekolah-smp-animasi-25.jpg" onclick="imgSlider('https://cdn.kibrispdr.org/data/335/gambar-gedung-sekolah-smp-animasi-25.jpg');changeCircleColor('#96c0e1')"></li>
+                <li><img src="https://kupastuntas.co/uploads/posts/kuliah-tatap-muka-di-lampung-belum-diperbolehkan_20200618184008.jpg" onclick="imgSlider('https://kupastuntas.co/uploads/posts/kuliah-tatap-muka-di-lampung-belum-diperbolehkan_20200618184008.jpg');changeCircleColor('#305e9a')"></li>
+            </ul>
+        </section>
+        <script type="text/javascript">
+             function imgSlider(anything){
+                document.querySelector('.sekolah').src = anything;
+            }
+
+            function changeCircleColor(color){
+                const circle = document.querySelector('.circle');
+                circle.style.background = color;
+            }
+        </script>
+        <head>
+            <body>
+                <div class="kotak">
+                    <h3><center>Program Link & Layanan</center></h3>
+                </div><br>
+			
+    <div class="five-boxes">
+        <!-- Box 1 -->
+        <div class="box" onclick="window.location.href='#'">
+            <img src="https://privacyaustralia.net/wp-content/uploads/2022/05/data-analyst.png" alt="Box 1 Image" style="width: 100%; height: 100%;">
+        </div>
+        <!-- Box 2 -->
+        <div class="box" onclick="window.location.href='#'">
+            <img src="https://e7.pngegg.com/pngimages/799/943/png-clipart-dinas-komunikasi-dan-informatika-diy-lambang-daerah-istimewa-yogyakarta-gunung-kidul-regency-smk-negeri-1-pajangan-indonesian-others-miscellaneous-emblem-thumbnail.png" alt="Box 2 Image" style="width: 100%; height: 100%;">
+        </div>
+        <!-- Box 3 -->
+        <div class="box" onclick="window.location.href='#'">
+            <img src="https://joss.co.id/data/uploads/2019/07/polemik-sistem-zonasi.jpg" alt="Box 3 Image" style="width: 100%; height: 100%;">
+        </div>
+        <!-- Box 4 -->
+        <div class="box" onclick="window.location.href='#'">
+            <img src="https://assets-global.website-files.com/5d8a2888296e91abbdcb65f0/6107ef58d7ca6dcf02591c1f_Manfaat%20Teknologi%20Informasi.jpg" alt="Box 4 Image" style="width: 100%; height: 100%;">
+        </div>
+        <!-- Box 5 -->
+        <div class="box" onclick="window.location.href='#'">
+            <img src="https://dikpora.jogjaprov.go.id/web/assets/images/posts/1670214767-Screenshot-2022-12-05-111741.jpg" alt="Box 5 Image" style="width: 100%; height: 100%;">
+        </div>
+</div>
+				  </ul>
+    </section>
+    
+ 
+    <div style="text-align: center;">
+    <h2>Potensi Persebaran Tempat Pendidikan di Kota Jogja</h2>       
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+    <div class="text-box" style="text-align: left; display: inline-block;">
+	<div style="color: #333; font-family: 'Poppins', sans-serif;">
+        Kota Yogyakarta, dengan segala kekayaan budaya dan sejarahnya, tidak hanya dikenal sebagai destinasi wisata yang menarik, tetapi juga sebagai pusat pendidikan yang berkembang pesat. Potensi persebaran tempat pendidikan di kota ini mencerminkan komitmen pemerintah dan masyarakat dalam meningkatkan akses dan kualitas pendidikan.
+
+        Persebaran Sekolah dan Perguruan Tinggi Sekolah-sekolah dan perguruan tinggi tersebar merata di berbagai wilayah Kota Yogyakarta. Mulai dari taman kanak-kanak hingga perguruan tinggi, setiap tingkatan pendidikan memiliki representasi yang signifikan. Hal ini memungkinkan akses pendidikan yang lebih mudah bagi warga setempat maupun pendatang.
+
+        Diversifikasi Program Pendidikan Dengan adanya berbagai jenis sekolah dan perguruan tinggi, Kota Yogyakarta menawarkan diversifikasi program pendidikan. Program-program unggulan dan spesialisasi tertentu memberikan kesempatan bagi siswa dan mahasiswa untuk mengeksplorasi minat dan bakat mereka secara lebih mendalam.
+
+        Akses Mudah ke Layanan Pendidikan Pemerintah Kota Yogyakarta telah berupaya untuk menyediakan akses mudah ke layanan pendidikan melalui berbagai inisiatif. Mulai dari pembangunan infrastruktur pendidikan hingga penyediaan layanan transportasi publik yang memadai, semua ini bertujuan untuk memastikan bahwa setiap individu memiliki kesempatan yang sama dalam mengakses pendidikan.
+</div>
+
+                
+            </section>
+        </div>
+        </div>
+            </body>
+        </head>
+        
